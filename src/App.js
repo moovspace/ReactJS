@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
 
 import Header from './components/layout/Header'
@@ -16,6 +17,25 @@ class App extends React.Component {
       {id: 5, title: "Hello 5", completed: false},
       {id: 6, title: "Hello 6", completed: false}
     ]
+  }
+
+  // React after component loaded
+  componentDidMount(){
+    fetch('https://jsonplaceholder.typicode.com/todos?_limit=6')
+    .then((response) => {
+      // Promise
+      return response.json();      
+    }).then((json) => {      
+      this.setState({
+        todos: json.filter((todo) => {
+          // Remove userId from todo object
+          return todo = delete todo.userId
+        })
+      })
+    })
+    .catch((err) => {
+      console.log(err)
+    });
   }
 
   // Toggle todo completed
@@ -52,18 +72,20 @@ class App extends React.Component {
   }
 
   render() {
-    return (    
-      <div className="App">      
-        
-        <Header />
+    return (
+      <Router>
+        <div className="App">      
+          
+          <Header />
 
-        <AddItem  mAddItem={this.mAddItem} />
+          <AddItem  mAddItem={this.mAddItem} />
 
-        <Todos todos={this.state.todos} mDone={this.mDone} mDelete={this.mDelete} />
+          <Todos todos={this.state.todos} mDone={this.mDone} mDelete={this.mDelete} />
 
-        <Footer />
+          <Footer />
 
-      </div>
+        </div>
+      </Router>
     );
   }
 }
