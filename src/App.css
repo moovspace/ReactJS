@@ -19,6 +19,23 @@ h4{
   font-size: 15px
 }
 
+.menu-top {
+  display: flex;
+  justify-content: center; 
+}
+.nav-link {
+  padding: 10px 15px;
+  margin: 5px;  
+  text-decoration: none;
+  border-radius: 5px;
+  background: #42b985;
+  color: #fff;
+}
+.nav-link:hover {
+  background: #f30;
+  color: #fff;
+}
+
 .btnSubmit{
   font-size: 16px;
   padding: 10px;

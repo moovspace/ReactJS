@@ -4,6 +4,40 @@ import React from 'react';
 import PropTypes from 'prop-types'
 
 class TodoItem extends React.Component {	
+	constructor(props) {
+		super(props); // Set props on parent React.Component
+		this.state = {date: new Date()}; // Add date state to props
+		
+		// In constructor
+		// this.handleClick = this.handleClick.bind(this);
+		// Or in button
+		// <button onClick={this.handleClick.bind(this)}>
+		// Auto dowiązanie this do metody
+		// handleClick = () => { console.log('this ma wartość:', this); }
+		// <button onClick={(e) => this.handleClick(e)}>
+	}
+
+	// On mount
+	componentDidMount() {
+		// Change timer every second
+		this.timerID = setInterval(
+			() => this.tick(),
+			1000
+		);
+	}
+
+	// On unmount
+	componentWillUnmount() {
+		clearInterval(this.timerID);
+	}
+
+	// Change timer every second
+	tick() {
+		this.setState({
+			date: new Date()
+		});
+	}
+
 	getStyle = () => {
 		return {
 			marginBottom: "5px",
@@ -20,6 +54,7 @@ class TodoItem extends React.Component {
 	}
 
 	toggleHover = () => {
+		// Zmien stan state
 		this.setState({hover: !this.state.hover})
 	}
 
@@ -38,6 +73,7 @@ class TodoItem extends React.Component {
 				<p style={{ margin: "0px" }}>
 					<input type="checkbox" onChange={this.props.mDone.bind(this, id)} /> {' '}
 					{ title }
+					<div class="time"> {this.state.date.toLocaleTimeString()} </div>
 					<button style={linkStyle} onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} onClick={this.props.mDelete.bind(this, id)}>X</button>
 				</p>
 			</div>
@@ -47,8 +83,15 @@ class TodoItem extends React.Component {
 
 // PropTypes
 TodoItem.propTypes = {
-	todo: PropTypes.object.isRequired
+	todo: PropTypes.object.isRequired,
+	mDone: PropTypes.func.isRequired,
+	mDelete: PropTypes.func.isRequired
 }
+
+// Default value for props
+TodoItem.defaultProps = {
+  color: 'platinum'
+};
 
 const btnStyle = {
 	backgroundColor: "#f44",
@@ -111,4 +154,26 @@ export default TodoItem
 // 	return {
 // 		textDecoration: 'none'
 // 	}
+// }
+
+// Warunkowy Componentfunction WarningBanner(props) {
+// if (!props.warn) {
+//     return null;
+//   }
+//   return (
+//     <div className="warning">
+//       Ostrzeżenie!
+//     </div>
+//   );
+// }
+
+// List Component\
+// function NumberList(props) {
+//   const numbers = props.numbers;
+//   const listItems = numbers.map((number) =>
+//     <li key={number.toString()}>{number}</li>
+//   );
+//   return (
+//     <ul>{listItems}</ul>
+//   );
 // }

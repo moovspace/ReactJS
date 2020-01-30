@@ -1,11 +1,16 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css';
 
+// Main page
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Todos from './components/Todos'
 import AddItem from './components/AddItem'
+
+// Router pages
+import About from './components/pages/About'
+import PostId from './components/pages/PostId'
 
 class App extends React.Component {
   state = {
@@ -22,10 +27,9 @@ class App extends React.Component {
   // React after component loaded
   componentDidMount(){
     fetch('https://jsonplaceholder.typicode.com/todos?_limit=6')
-    .then((response) => {
-      // Promise
-      return response.json();      
-    }).then((json) => {      
+    .then((res) => res.json()) // Promise
+    .then((json) => {
+      // Set component state
       this.setState({
         todos: json.filter((todo) => {
           // Remove userId from todo object
@@ -72,20 +76,30 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <Router>
-        <div className="App">      
-          
-          <Header />
+    return (      
+        <Router>
+          <div className="App">
+            <Header />
 
-          <AddItem  mAddItem={this.mAddItem} />
+            <Switch>
+              
+              <Route exact path="/" render={
+                props => (
+                  <React.Fragment>
+                    <AddItem  mAddItem={this.mAddItem} />
+                    <Todos todos={this.state.todos} mDone={this.mDone} mDelete={this.mDelete} />
+                  </React.Fragment>
+                )
+              } />
 
-          <Todos todos={this.state.todos} mDone={this.mDone} mDelete={this.mDelete} />
+              <Route path="/about" component={About} />
+              <Route path="/post/:postid/image/:imageid" component={PostId} />
+            
+            </Switch>
 
-          <Footer />
-
-        </div>
-      </Router>
+            <Footer />
+          </div>
+        </Router>      
     );
   }
 }
