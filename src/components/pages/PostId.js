@@ -1,6 +1,9 @@
 import React from 'react';
 import { useParams, /* useRouteMatch */ } from 'react-router-dom'
 
+// Short component
+// const PostId = () => { return () }
+
 function PostId() {
 	// get url params
   let { postid, imageid } = useParams();

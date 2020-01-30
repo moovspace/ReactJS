@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import './App.css';
 
+// Switch - display only correct page without error
+// NavLink - actiwe linc style
+
 // Main page
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
@@ -11,6 +14,7 @@ import AddItem from './components/AddItem'
 // Router pages
 import About from './components/pages/About'
 import PostId from './components/pages/PostId'
+import Error from './components/pages/Error'
 
 class App extends React.Component {
   state = {
@@ -93,8 +97,9 @@ class App extends React.Component {
               } />
 
               <Route path="/about" component={About} />
-              <Route path="/post/:postid/image/:imageid" component={PostId} />
-            
+              <Route path="/post/:postid/image/:imageid" component={PostId} />              
+              <Route path="/:error" component={Error} />
+
             </Switch>
 
             <Footer />

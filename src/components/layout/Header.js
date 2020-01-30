@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link, /* NavLink */ } from 'react-router-dom'
 
+// NavLink - Add active link style
+// <NavLink exact className="nav-link" activeStyle={{ color: "red" }} to="/"> Home </NavLink>
+// <NavLink className="nav-link" activeStyle={{ color: "red" }} to="/about"> About </NavLink>
+
 function Header() {
 	return (
 		<header style={headerStyle}>
 			<h1>My secret list</h1>
 
 			<div className="menu-top">
-				<Link className="nav-link" to="/"> Home </Link>
+				<Link exact className="nav-link" to="/"> Home </Link>
 				<Link className="nav-link" to="/about"> About </Link>
 				<Link className="nav-link" to="/post/777/image/888"> Post Id </Link>
 			</div>
