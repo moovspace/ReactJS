@@ -18,6 +18,7 @@ function Header() {
 				<NavLink exact className="nav-link" activeClassName="nav-link-active" to="/"> Home </NavLink>
 				<NavLink className="nav-link" activeClassName="nav-link-active" to="/about"> About </NavLink>
 				<NavLink className="nav-link" activeClassName="nav-link-active" to="/post/777/image/888"> Post Id </NavLink>
+				<NavLink className="nav-link" activeClassName="nav-link-active" to="/hash-error-link"> Error route </NavLink>
 			</div>
 
 		</header>		
